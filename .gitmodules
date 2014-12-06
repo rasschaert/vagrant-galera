@@ -1,9 +1,9 @@
-[submodule "puppet/modules/concat"]
-	path = puppet/modules/concat
-	url = https://github.com/puppetlabs/puppetlabs-concat.git
 [submodule "puppet/modules/stdlib"]
 	path = puppet/modules/stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/modules/concat"]
+	path = puppet/modules/concat
+	url = https://github.com/puppetlabs/puppetlabs-concat.git
 [submodule "puppet/modules/snmp"]
 	path = puppet/modules/snmp
 	url = https://github.com/rasschaert/puppet-snmp.git
