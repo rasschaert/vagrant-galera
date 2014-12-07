@@ -15,6 +15,15 @@ class profiles::galera (
   }
   include snmp::client
 
+  class { 'xtrabackup':
+    dbuser    => 'root',
+    dbpass    => $root_password,
+    outputdir => '/mnt/storage/backups/mariadb',
+    cronjob   => false,
+  }
+
+  Class['xtrabackup'] -> Class['mariadb']
+
   $node_address = inline_template("<%= scope.lookupvar('::ipaddress_${interface}') -%>")
   class { 'mariadb':
     root_password   => $root_password,
