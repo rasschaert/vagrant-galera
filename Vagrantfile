@@ -13,9 +13,6 @@ Vagrant.configure("2") do |config|
 ###############################################################################
   config.vm.synced_folder 'hiera/', '/var/lib/hiera'
 
-  # super lazy workaround. TODO: puppetize the firewall
-  config.vm.provision :shell, inline: "sudo systemctl stop firewalld"
-
   config.vm.provision :puppet do |puppet|
     puppet.options = "--environment development"
     puppet.manifests_path = "puppet/environments/development/manifests"

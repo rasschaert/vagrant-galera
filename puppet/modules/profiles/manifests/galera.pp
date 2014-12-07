@@ -7,6 +7,9 @@ class profiles::galera (
   $sst_password    = '',
   $interface       = 'eth0',
 ) {
+  ########
+  # SNMP #
+  ########
   $snmp_allowed_hosts = concat(['127.0.0.1'], $cluster_members)
   class { 'snmp::server':
     syslocation   => 'Vagrant',
@@ -15,6 +18,9 @@ class profiles::galera (
   }
   include snmp::client
 
+  ###########
+  # MariaDB #
+  ###########
   class { 'xtrabackup':
     dbuser    => 'root',
     dbpass    => $root_password,
@@ -32,4 +38,19 @@ class profiles::galera (
     cluster_members => $cluster_members,
     node_address    => $node_address,
   }
+
+  #############
+  # Firewalld #
+  #############
+  firewalld::service { 'snmp':
+    description => 'snmp service',
+    ports       => [{port => '161', protocol => 'udp',},],
+  }
+
+  firewalld::service { 'mariadb':
+    description => 'mariadb service',
+    ports       => [{port => '3306', protocol => 'tcp',},],
+  }
+
+  firewalld::service<| |> -> Class['mariadb']
 }
