@@ -12,7 +12,6 @@ Vagrant.configure("2") do |config|
 # Global provisioning settings                                                #
 ###############################################################################
   config.vm.synced_folder 'hiera/', '/var/lib/hiera'
-
   config.vm.provision :puppet do |puppet|
     puppet.options = "--environment development"
     puppet.manifests_path = "puppet/environments/development/manifests"
@@ -50,10 +49,5 @@ Vagrant.configure("2") do |config|
     db03.vm.hostname = "db03.vagrant.local"
     db03.vm.network :private_network, ip: "172.20.200.103"
     db03.vm.provider("virtualbox") { |v| v.name = "db03" }
-  end
-  config.vm.define :db04 do |db04|
-    db04.vm.hostname = "db04.vagrant.local"
-    db04.vm.network :private_network, ip: "172.20.200.104"
-    db04.vm.provider("virtualbox") { |v| v.name = "db04" }
   end
 end
