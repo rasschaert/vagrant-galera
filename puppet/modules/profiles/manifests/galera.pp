@@ -52,5 +52,5 @@ class profiles::galera (
     ports       => [{port => '3306', protocol => 'tcp',},],
   }
 
-  firewalld::service<| |> -> Class['mariadb']
+  Firewalld::Service<| |> -> Class['mariadb']
 }
