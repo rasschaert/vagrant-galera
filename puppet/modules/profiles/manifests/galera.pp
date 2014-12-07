@@ -39,18 +39,7 @@ class profiles::galera (
     node_address    => $node_address,
   }
 
-  #############
-  # Firewalld #
-  #############
-  firewalld::service { 'snmp':
-    description => 'snmp service',
-    ports       => [{port => '161', protocol => 'udp',},],
-  }
-
-  firewalld::service { 'mariadb':
-    description => 'mariadb service',
-    ports       => [{port => '3306', protocol => 'tcp',},],
-  }
-
-  Firewalld::Service<| |> -> Class['mariadb']
+  ############
+  # Firewall #
+  ############
 }
