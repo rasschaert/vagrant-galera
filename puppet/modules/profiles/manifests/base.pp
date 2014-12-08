@@ -11,4 +11,12 @@ class profiles::base {
   package { 'tree':
     ensure => installed,
   }
+  # Until a proper openssh module is included
+  firewall { '100 allow ssh':
+    chain  => 'INPUT',
+    state  => ['NEW'],
+    dport  => '22',
+    proto  => 'tcp',
+    action => 'accept',
+  }
 }

@@ -38,8 +38,4 @@ class profiles::galera (
     cluster_members => $cluster_members,
     node_address    => $node_address,
   }
-
-  ############
-  # Firewall #
-  ############
 }

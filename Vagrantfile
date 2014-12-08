@@ -11,6 +11,12 @@ Vagrant.configure("2") do |config|
 ###############################################################################
 # Global provisioning settings                                                #
 ###############################################################################
+  # Workaround for https://tickets.puppetlabs.com/browse/MODULES-1303
+  config.vm.provision :shell, inline: "sudo yum -y erase firewalld;\
+                                       sudo yum -y install iptables-services;\
+                                       sudo systemctl enable iptables.service;\
+                                       sudo systemctl start iptables.service;"
+
   config.vm.synced_folder 'hiera/', '/var/lib/hiera'
   config.vm.provision :puppet do |puppet|
     puppet.options = "--environment development"
