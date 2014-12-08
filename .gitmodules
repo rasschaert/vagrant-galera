@@ -13,3 +13,6 @@
 [submodule "puppet/modules/firewall"]
 	path = puppet/modules/firewall
 	url = https://github.com/puppetlabs/puppetlabs-firewall.git
+[submodule "puppet/modules/xtrabackup"]
+	path = puppet/modules/xtrabackup
+	url = https://github.com/BashtonLtd/puppet-xtrabackup.git
