@@ -11,6 +11,10 @@ class profiles::base {
   package { 'tree':
     ensure => installed,
   }
+  package { 'git':
+    ensure => installed,
+  }
+
   # Until a proper openssh module is included
   firewall { '100 allow ssh':
     chain  => 'INPUT',
@@ -19,4 +23,6 @@ class profiles::base {
     proto  => 'tcp',
     action => 'accept',
   }
+
+  include epel
 }

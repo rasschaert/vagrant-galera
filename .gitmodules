@@ -16,3 +16,6 @@
 [submodule "puppet/modules/xtrabackup"]
 	path = puppet/modules/xtrabackup
 	url = https://github.com/BashtonLtd/puppet-xtrabackup.git
+[submodule "puppet/modules/epel"]
+	path = puppet/modules/epel
+	url = https://github.com/stahnma/puppet-module-epel
