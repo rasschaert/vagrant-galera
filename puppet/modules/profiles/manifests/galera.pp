@@ -18,9 +18,11 @@ class profiles::galera (
   }
   include snmp::client
 
-  ###########
-  # MariaDB #
-  ###########
+  ####################
+  # MariaDB & Galera #
+  ####################
+  include python
+
   class { 'xtrabackup':
     dbuser    => 'root',
     dbpass    => $root_password,
