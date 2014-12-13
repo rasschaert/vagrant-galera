@@ -1,10 +1,21 @@
 classes:
   - roles::db_cluster
 
-profiles::galera::root_password: toor
-profiles::galera::sst_password: 08VIf3xj62
-profiles::galera::cluster_members:
+
+xtrabackup::dbuser: root
+xtrabackup::dbpass: "%{hiera('::mariadb::root_password')}"
+xtrabackup::outputdir: /mnt/storage/backups/mariadb
+xtrabackup::cronjob: false
+
+snmp::server::syslocation: Vagrant
+snmp::server::syscontact: Admin <admin@example.com>
+snmp::server::allowed_hosts: "%{hiera('::galera::cluster_members')}"
+
+mariadb::root_password: toor
+mariadb::galera: true
+mariadb::sst_password: 08VIf3xj62
+mariadb::cluster_members:
   - 172.20.200.101
   - 172.20.200.102
   - 172.20.200.103
-profiles::galera::interface: enp0s8
+mariadb::node_address: "%{::ipaddress_enp0s8}"

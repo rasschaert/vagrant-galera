@@ -1,43 +1,11 @@
 # Class: profiles::galera
 #
 #
-class profiles::galera (
-  $root_password   = '',
-  $cluster_members = [],
-  $sst_password    = '',
-  $interface       = 'eth0',
-) {
-  ########
-  # SNMP #
-  ########
-  $snmp_allowed_hosts = concat(['127.0.0.1'], $cluster_members)
-  class { 'snmp::server':
-    syslocation   => 'Vagrant',
-    syscontact    => 'Admin <admin@example.com>',
-    allowed_hosts => $snmp_allowed_hosts,
-  }
+class profiles::galera {
+  include snmp::server
   include snmp::client
-
-  ####################
-  # MariaDB & Galera #
-  ####################
   include python
-
-  class { 'xtrabackup':
-    dbuser    => 'root',
-    dbpass    => $root_password,
-    outputdir => '/mnt/storage/backups/mariadb',
-    cronjob   => false,
-  }
-
+  include xtrabackup
+  include mariadb
   Class['xtrabackup'] -> Class['mariadb']
-
-  $node_address = inline_template("<%= scope.lookupvar('::ipaddress_${interface}') -%>")
-  class { 'mariadb':
-    root_password   => $root_password,
-    galera          => true,
-    sst_password    => $sst_password,
-    cluster_members => $cluster_members,
-    node_address    => $node_address,
-  }
 }
