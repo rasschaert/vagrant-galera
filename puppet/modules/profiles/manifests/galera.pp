@@ -2,10 +2,10 @@
 #
 #
 class profiles::galera {
-  include snmp::server
-  include snmp::client
-  include python
-  include xtrabackup
-  include mariadb
+  contain snmp
+  contain python
+  contain xtrabackup
+  contain mariadb
   Class['xtrabackup'] -> Class['mariadb']
+  Class['python']     -> Class['mariadb']
 }
